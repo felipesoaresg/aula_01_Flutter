@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: darkBlue,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: MyWidget(),
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  var minhaLista = [];
+  List meusWidgets = [];
+
+  final myController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      TextField(
+        controller: myController,
+      ),
+      SizedBox(height: 30), //separa elementos
+      ElevatedButton(
+          //cria o botão-
+          child: const Text('Adicionar'),
+          onPressed: () {
+            //cria uma açâo para o botão
+
+            minhaLista.add(int.parse(myController.text)); //adiciona o texto do textfield a lista assim que o botão é pressionado
+            print(minhaLista); //apresenta os valores que estão na lista
+          }),
+
+      SizedBox(height: 15),
+      ElevatedButton(
+          //cria o botão-
+          child: const Text('Média'),
+          onPressed: () {
+            
+            minhaLista.forEach((number) => print(number));
+             print("O tamanho da lista é: ${minhaLista.length}");
+            
+            //calculo da média
+            int meuNumero;
+            int soma = 0;
+
+            for (int indice = 0; indice < minhaLista.length; indice++) {
+              meuNumero = minhaLista[indice];
+
+              soma = soma + meuNumero;
+            }
+
+           print (soma / minhaLista.length);
+
+            
+          }),
+      
+        SizedBox(height: 15),
+        ElevatedButton(
+          //cria o botão-
+          child: const Text('Par e impar'),
+          onPressed: () {
+            //calculo de média 
+            
+            List pares = [];
+            List impares = [];
+            
+            for (int indice = 0; indice < minhaLista.length; indice++) {
+            
+              if (minhaLista[indice] % 2 == 0){
+                pares.add(minhaLista[indice]);
+              }else {
+                impares.add(minhaLista[indice]);
+              }
+           }
+            print(impares);
+            print(pares);
+          }),
+  ]);
+}
+}
